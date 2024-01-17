@@ -20,6 +20,18 @@ function PlantPage() {
     setPlants([...plants, newPlant])
   }
 
+  // PATCH STEP 1- CREATE A FUNCTION TO HANDLE THE UPDATE OF A PLANT
+  function handleUpdatePlant(newPlant) {
+    const updatedPlants = plants.map((plant) => {
+      if (plant.id === newPlant.id) {
+        return newPlant
+      } else {
+        return plant
+      }
+    })
+    setPlants(updatedPlants)
+  }
+
   function removePlant(id) {
     const newPlants = plants.filter((plant) => plant.id !== id)
     setPlants(newPlants)
@@ -31,7 +43,7 @@ function PlantPage() {
     <main>
       <NewPlantForm onNewPlantFormSubmit={handleNewPlantFormSubmit}/>
       <Search search={search} setSearch={setSearch}/>
-      <PlantList plants={displayedPlants} removePlant={removePlant}/>
+      <PlantList plants={displayedPlants} removePlant={removePlant} updatePlant={handleUpdatePlant}/>  {/* PATCH STEP 2 - ADD THE UPDATE FUNCTION TO THE PLANTLIST COMPONENT*/} 
     </main>
   );
 }
