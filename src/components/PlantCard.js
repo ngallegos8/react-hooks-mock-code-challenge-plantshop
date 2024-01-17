@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 
-function PlantCard({ plant }) {
+function PlantCard({ plant, removePlant }) {
   const [stock, setStock] = useState(true)
 
-
+  function handleDelete() {
+    fetch(`http://localhost:6001/plants/${plant.id}`, {
+      method: "DELETE"
+    })
+    removePlant(plant.id)
+  }
 
   return (
     <li className="card">
@@ -15,6 +20,7 @@ function PlantCard({ plant }) {
       ) : (
         <button onClick={() => setStock(true)} className="secondary" >Out of Stock</button>
       )}
+      <button onClick={handleDelete} className="emoji-button delete">🗑</button>
     </li>
   );
 }
